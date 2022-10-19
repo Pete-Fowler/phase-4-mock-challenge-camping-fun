@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
 
-  rescue_from ActiveRecord::InvalidRecord, with: :render_invalid
+  rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
   def render_invalid(invalid)
