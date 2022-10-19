@@ -6,7 +6,11 @@ class CampersController < ApplicationController
 
   def show 
     camper = Camper.find(params[:id])
-    render json: camper
+    if camper 
+      render json: camper, serializer: CamperActivitiesSerializer
+    else
+      render json: {error: "Camper not found"}
+    end
   end 
 
   def create 

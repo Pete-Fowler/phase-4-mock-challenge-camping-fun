@@ -5,11 +5,11 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
   def render_invalid(invalid)
-    render json: { errors: invalid.record.errors.full_messages }
+    render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
   end
 
-  def render_not_found 
-    render json: { errors: 'Record not found' }
+  def render_not_found(exception)
+    render json: { error: "#{exception.model} not found" }, status: :not_found
   end 
 
 end
