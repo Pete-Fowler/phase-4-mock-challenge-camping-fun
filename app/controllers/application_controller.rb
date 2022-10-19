@@ -1,4 +1,15 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
 
+  rescue_from ActiveRecord::InvalidRecord, with: :render_invalid
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+
+  def render_invalid(invalid)
+    render json: { errors: invalid.record.errors.full_messages }
+  end
+
+  def render_not_found 
+    render json: { errors: 'Record not found' }
+  end 
+
 end
